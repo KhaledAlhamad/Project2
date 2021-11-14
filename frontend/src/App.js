@@ -28,7 +28,21 @@ function App() {
     })
     
   }, [])
+  /*
+  axios.get("http://localhost:8080/anime/top").then((res) => {
+      setAnime(res.data.top);
+      // console.log(res.data.top)
+      // console.log(anime[0].title)
+    });
+  }, []);
+  const getInfo = (e) => {
+    axios.get(`http://localhost:8080/anime/${e}`).then((res) => {
+      setDetails(res.data.top);
+      console.log(details);
+    });
+  }*/
 
+  const top = anime.slice(1, 6);
   return (
     <Router>
       <div className="App">
