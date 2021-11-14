@@ -8,9 +8,16 @@ import Navbar from './components/Navbar';
 import Details from './components/Details';
 import Login from './components/Login';
 import Sidebar from './components/Sidebar';
+import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import { LogContext } from "./components/LogContext";
+import Signup from './components/Signup';
+
+
 function App() {
   const [animes, setAnimes] = useState([])
   const [anime, setAnime] = useState([])
+  //ADDED K
+  const [logged, setLogged] = useState(false);
 
   useEffect(() => {
     axios.get('https://api.jikan.moe/v3/top/anime/1/airing').then((res) =>{
@@ -42,6 +49,8 @@ function App() {
 
   // const top = anime.slice(1, 6);
   return (
+    <LogContext.Provider value={{ logged, setLogged }}>
+      
     <Router>
       <div className="App">
       <Navbar />
@@ -59,9 +68,13 @@ function App() {
         <Route path="/Login">
           <Login />
         </Route>
+        <Route path="/signup">
+          <Signup />
+        </Route>
         </header>
       </div>
     </Router>
+    </ LogContext.Provider>
   );
 }
 
