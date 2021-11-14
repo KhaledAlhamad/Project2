@@ -1,12 +1,17 @@
 // import React, { useState } from "react";
 // import { useDispatch, useSelector } from "react-redux";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 // import Form from "react-bootstrap/Form";
 // import Form from "react-bootstrap/Form";
 // import Button from "react-bootstrap/Button";
 import axios from 'axios'
+import { LogContext } from './LogContext';
+import { useContext } from 'react';
 
 function Login() {
+  //ADDED K
+  const log = useContext(LogContext);
+
   // const [userName, setUserName] = useState("");
   // const [password, setPassword] = useState("");
   // const [email, setEmail] = useState("");
@@ -20,21 +25,27 @@ function Login() {
   //   event.preventDefault();
   // }
 
-  const addUser = (e) => {
+  
+
+  const logUser = (e) => {
     e.preventDefault();
-    // console.log(e.target.form[0]);
+    //ADDED
+    // log.setLogged(true);
+    // console.log(e.target.form[0].value);
 
     axios
-      .post("http://localhost:8080/user/signup", {
+      .post("http://localhost:8080/user/login", {
         email: e.target.form[0].value,
         password: e.target.form[1].value,
       })
       .then((res) => {
+        const status = res.data == 'Success' ? log.setLogged(true) : log.setLogged(false);
         console.log(res.data);
-        // setBlog(res.data);
-        // setPost(res.data);
+       
       });
   };
+
+
 
 
   return (
@@ -73,7 +84,8 @@ function Login() {
         </Button>
       </Form>
       <button onClick={()=>setType(type=='log_in'?'sign_up':'log_in')}>{type=='log_in'?'Or Create a new account':'Already have account? log in'}</button> */}
-      <form>
+      
+      {/* <form>
         <div class="form-group">
           <label for="exampleInputEmail1">Email address</label>
           <input
@@ -101,13 +113,95 @@ function Login() {
           <label class="form-check-label" for="exampleCheck1">
             Check me out
           </label>
+        </div> */}
+
+
+
+        {/* ADDED K */}
+        {log.logged ? (
+        
+        <h1>You are logged</h1>
+
+      ) 
+      : (
+        <form>
+        <div class="form-group">
+          <h1>Login</h1>
+          <label for="exampleInputEmail1">Email address</label>
+          <input
+            type="email"
+            class="form-control"
+            id="exampleInputEmail1"
+            aria-describedby="emailHelp"
+            placeholder="Enter email"
+          />
+          <small id="emailHelp" class="form-text text-muted">
+            We'll never share your email with anyone else.
+          </small>
         </div>
-        <button type="submit" class="btn btn-primary" onClick={(e) => {
+        <div class="form-group">
+          <label for="exampleInputPassword1">Password</label>
+          <input
+            type="password"
+            class="form-control"
+            id="exampleInputPassword1"
+            placeholder="Password"
+          />
+        </div>
+        <div class="form-check">
+          {/* <input type="checkbox" class="form-check-input" id="exampleCheck1" />
+          <label class="form-check-label" for="exampleCheck1">
+            Check me out
+          </label> */}
+          <Link
+            style={{ color: "white" }}
+            to="/signup"
+            style={{ textDecoration: "none", color: "white" }}
+          >
+            {" "}
+            Doesn't have account? SignUp
+          </Link>
+        </div>
+        <button
+          type="submit"
+          class="btn btn-success btn-lg"
+          onClick={(e) => {
+            logUser(e);
+          }}>Login</button>
+        </form>
+      )}
+
+        {/* {log.logged ? (
+        "User Logged in"
+      ) : (
+        <button
+          type="submit"
+          class="btn btn-success btn-lg"
+          onClick={(e) => {
+            addUser(e);
+          }}
+          onClick={() => {
+            log.setLogged(true);
+          }}
+        >Login
+          <Link
+            style={{ color: "white" }}
+            to="./home"
+            style={{ textDecoration: "none", color: "white" }}
+          >
+            {" "}
+            Login
+          </Link>
+        </button>
+      )} */}
+ {/* ADDED K END*/}
+
+        {/* <button type="submit" class="btn btn-primary" onClick={(e) => {
               addUser(e);
             }}>
           Submit
         </button>
-      </form>
+      </form> */}
     </div>
   );
 }
