@@ -14,10 +14,8 @@ function App() {
 
   useEffect(() => {
     axios.get('https://api.jikan.moe/v3/top/anime/1/airing').then((res) =>{
-      res.data.top.length>25?setAnimes(res.data.top.slice(0,24)):
-      res.data.top.length>19?setAnimes(res.data.top).slice(0,18):
-      res.data.top.length>13?setAnimes(res.data.top).slice(0,12):
-      res.data.top.length>7?setAnimes(res.data.top).slice(0,6):
+      res.data.top.length>13?setAnimes(res.data.top.slice(0,12)):
+      res.data.top.length>7?setAnimes(res.data.top.slice(0,6)):
       res.data.top.length==1?setAnimes(res.data.top):
       setAnimes([])
       console.log(res.data.top)
@@ -42,7 +40,7 @@ function App() {
     });
   }*/
 
-  const top = anime.slice(1, 6);
+  // const top = anime.slice(1, 6);
   return (
     <Router>
       <div className="App">
