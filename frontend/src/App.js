@@ -1,68 +1,69 @@
-import logo from "./logo.svg";
-import "./App.css";
-import { useEffect } from "react";
-import axios from "axios";
-import { useState } from "react";
 
+import './App.css';
+import axios from 'axios';
+import React,{ useEffect, useState} from 'react';
+import { BrowserRouter as Router, Route, Switch} from 'react-router-dom'
+import Home from './components/Home';
+import Navbar from './components/Navbar';
+import Details from './components/Details';
+import Login from './components/Login';
+import Sidebar from './components/Sidebar';
 function App() {
-  const [anime, setAnime] = useState([]);
-  // const [manga, setManga] = useState([]);
-  const [details, setDetails] = useState([])
-
-  // useEffect(() => {
-  //   axios.get("http://localhost:8080/anime/upcoming").then((res) => {
-  //     setAnime(res.data.top);
-  //     // console.log(res.data.top)
-  //     // console.log(anime[0].title)
-  //   });
-  // }, []);
+  const [animes, setAnimes] = useState([])
+  const [anime, setAnime] = useState([])
 
   useEffect(() => {
-    axios.get("http://localhost:8080/anime/top").then((res) => {
+    axios.get('https://api.jikan.moe/v3/top/anime/1/airing').then((res) =>{
+      res.data.top.length>25?setAnimes(res.data.top.slice(0,24)):
+      res.data.top.length>19?setAnimes(res.data.top).slice(0,18):
+      res.data.top.length>13?setAnimes(res.data.top).slice(0,12):
+      res.data.top.length>7?setAnimes(res.data.top).slice(0,6):
+      res.data.top.length==1?setAnimes(res.data.top):
+      setAnimes([])
+      console.log(res.data.top)
+    })
+    axios.get('https://api.jikan.moe/v3/anime/1').then((res) =>{
+      setAnime(res.data)
+      console.log(res.data.top)
+    })
+    
+  }, [])
+  /*
+  axios.get("http://localhost:8080/anime/top").then((res) => {
       setAnime(res.data.top);
       // console.log(res.data.top)
       // console.log(anime[0].title)
     });
   }, []);
-
-  // useEffect(() => {
-  //   axios.get("http://localhost:8080/manga").then((res) => {
-  //     setManga(res.data.characters);
-  //     console.log(res.data.characters);
-  //     // console.log(anime[0].title)
-  //   });
-  // }, []);
-
   const getInfo = (e) => {
     axios.get(`http://localhost:8080/anime/${e}`).then((res) => {
       setDetails(res.data.top);
       console.log(details);
     });
-  }
+  }*/
 
   const top = anime.slice(1, 6);
   return (
-    <div className="App">
-      <header className="App-header">
-        {top.map((e) => {
-          return (
-            <div>
-              <img src={e.image_url} alt="none" />
-              <button onClick={getInfo(e.id)}></button>
-              <h4>{e.title}</h4>
-            </div>
-          );
-        })}
-
-        {/* {manga.map((e) => {
-          return (
-            <div>
-              <img src={e.image_url} alt="none" />
-            </div>
-          );
-        })} */}
-      </header>
-    </div>
+    <Router>
+      <div className="App">
+      <Navbar />
+      <Sidebar />
+        <header className="App-header">
+        <Route exact path="/">
+          <Home names={animes} />
+        </Route>
+        <Route path="/Home">
+          <Home names={animes} />
+        </Route>
+        <Route path="/Details">
+          <Details name={anime} />
+        </Route>
+        <Route path="/Login">
+          <Login />
+        </Route>
+        </header>
+      </div>
+    </Router>
   );
 }
 
