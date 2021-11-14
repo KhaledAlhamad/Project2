@@ -7,51 +7,52 @@ router.use(express.json());
 
 const fs = require("fs");
 
-// GET users 
+// GET users
 router.get("/", (req, res) => {
   fs.readFile("./db/user.json", "utf8", (err, data) => {
     res.send(data);
   });
 });
 
-// ADD new user SignUp
-router.post("/signup", async (req, res) => {
-  try {
-    const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
-    fs.readFile("./db/user.json", "utf8", (err, data) => {
-      let arr = JSON.parse(data);
-      const newUser = { email: req.body.email, password: hashedPassword };
-        arr.push(newUser);
+
+// ADD new user SignUp
+router.post("/signup", (req, res) => {
+  fs.readFile("./db/user.json", "utf8", (err, data) => {
+    let arr = JSON.parse(data);
+
+    const user = arr.find((user) => user.email == req.body.email);
+    if (user) {
+      return res.status(400).send("Email already exist");
+    }
+     else {
+      const newUser = { email: req.body.email, password: req.body.password };
+      arr.push(newUser);
       fs.writeFile("./db/user.json", JSON.stringify(arr), (err) => {
         res.send("added");
       });
-    });
-  } catch {
-    res.status(500).send();
-  }
+    }
+  });
 });
 
 // Login
-router.post("/login", async (req, res) => {
-      fs.readFile("./db/user.json", "utf8", (err, data) => {
-        let arr = JSON.parse(data);
-        const user = arr.find(user => req.body.email)
-        if(user == null){
-            return res.status(400).send("Cannot find user")
-        }
-      });
-      try{
-            if(await bcrypt.compare(req.body.password, user.password)){
-                res.send("Success")
-            }
-            else{
-                res.send("NOT Allowed")
-            }
+router.post("/login", (req, res) => {
+  fs.readFile("./db/user.json", "utf8", (err, data) => {
+    let arr = JSON.parse(data);
+
+    const user = arr.find((user) => user.email == req.body.email);
+
+    // console.log(user?.email);
+    // console.log(user?.password);
+
+    if (user == null) {
+      return res.status(400).send("Cannot find user");
     }
-     catch {
-      res.status(500).send();
+    if (user.password !== req.body.password) {
+      return res.status(400).send("Password is NOT correct");
     }
+    return res.send("Success");
   });
+});
 
 module.exports = router;
