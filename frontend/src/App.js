@@ -14,10 +14,12 @@ import Signup from './components/Signup';
 import Profile from './components/Profile';
 
 function App() {
-  const [animes, setAnimes] = useState([])
+  const [airing, setAiring] = useState([])
   const [anime, setAnime] = useState([])
   //ADDED K
   const [logged, setLogged] = useState(false);
+  const [top, setTop] = useState([])
+
 
   /*
   axios.get("http://localhost:8080/anime/top").then((res) => {
@@ -32,6 +34,21 @@ function App() {
       console.log(details);
     });
   }*/
+  // GET Airing 
+  useEffect(() => {
+    axios.get('http://localhost:8080/anime/airing').then((res) =>{
+      setAiring(res.data.top.slice(0,6));
+      console.log(res.data.top)
+    })
+  }, [])
+
+  // GET Top 
+  useEffect(() => {
+    axios.get('http://localhost:8080/anime/top').then((res) =>{
+      setTop(res.data.top.slice(0,6));
+      console.log(res.data.top)
+    })
+  }, [])
 
   // const top = anime.slice(1, 6);
   return (
@@ -43,10 +60,10 @@ function App() {
           <Sidebar />
           <header className="App-header">
             <Route exact path="/">
-              <Home names={animes} />
+              <Home airing={airing} top={top} />
             </Route>
             <Route path="/Home">
-              <Home names={animes} />
+              <Home airing={airing} top={top}/>
             </Route>
             <Route path="/Details">
               <Details name={anime} />
