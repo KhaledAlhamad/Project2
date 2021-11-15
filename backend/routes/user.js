@@ -119,13 +119,14 @@ router.delete("/watch", (req, res) => {
     if (animeid > -1) {
      toDelete.watchlist.splice(animeid, 1);
     }
-    arr.push(toDelete);
+    // arr.push(toDelete);
+    console.log(toDelete)
     
 
 
-    fs.writeFile("./db/user.json", JSON.stringify(arr), (err) => {
-      res.send("added");
-    });
+    // fs.writeFile("./db/user.json", JSON.stringify(arr), (err) => {
+    //   res.send("added");
+    // });
   });
 });
 
