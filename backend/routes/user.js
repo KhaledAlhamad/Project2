@@ -55,4 +55,25 @@ router.post("/login", (req, res) => {
   });
 });
 
+// ADD to Watchlist
+router.post("/watch", (req, res) => {
+  console.log(req.body)
+  // res.send(req.body)
+  fs.readFile("./db/user.json", "utf8", (err, data) => {
+    let arr = JSON.parse(data);
+    // res.send(arr)
+
+    const user = arr.find((user) => user.email == req.body.email);
+    if (user) {
+     user.watchlist.push(req.body.details)
+
+    }
+    res.send(user.watchlist);
+    // fs.writeFile("./db/user.json", JSON.stringify(arr), (err) => {
+    //   res.send("added");
+    // });
+    
+  });
+});
+
 module.exports = router;
