@@ -19,7 +19,7 @@ function App() {
   const [logged, setLogged] = useState(false);
   const [top, setTop] = useState([])
 
-  // GET Airing
+
   useEffect(() => {
     axios.get('http://localhost:8080/anime/airing').then((res) =>{
       setAiring(res.data.top.slice(0,6));
@@ -33,7 +33,11 @@ function App() {
       console.log(res.data.top)
     })
   }, [])
-  // const top = anime.slice(1, 6);
+// <<<<<<< yasser
+//   // const top = anime.slice(1, 6);
+// =======
+
+// >>>>>>> main
   return (
     <LogContext.Provider value={{ logged, setLogged }}>
       <Router>

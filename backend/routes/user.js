@@ -22,11 +22,12 @@ router.post("/signup", (req, res) => {
     let arr = JSON.parse(data);
 
     const user = arr.find((user) => user.email == req.body.email);
+    console.log(user)
     if (user) {
       return res.status(400).send("Email already exist");
     }
      else {
-      const newUser = { email: req.body.email, password: req.body.password, userName: "", reviews:[], watchlist:[] };
+      const newUser = { email: req.body.email, password: req.body.password,  reviews:[], watchlist:[] };
       arr.push(newUser);
       fs.writeFile("./db/user.json", JSON.stringify(arr), (err) => {
         res.send("added");
@@ -57,23 +58,54 @@ router.post("/login", (req, res) => {
 
 // ADD to Watchlist
 router.post("/watch", (req, res) => {
-  console.log(req.body)
+  // console.log(req.body)
   // res.send(req.body)
   fs.readFile("./db/user.json", "utf8", (err, data) => {
     let arr = JSON.parse(data);
     // res.send(arr)
 
     const user = arr.find((user) => user.email == req.body.email);
-    if (user) {
-     user.watchlist.push(req.body.details)
-
+    // console.log(user)
+    if (user == undefined) {
+     res.status(400).send("Not logged in")
     }
-    res.send(user.watchlist);
-    // fs.writeFile("./db/user.json", JSON.stringify(arr), (err) => {
-    //   res.send("added");
-    // });
+    else{
+      user.watchlist.push(req.body.details);
+     res.send(user.watchlist);
+    }
+    
+    fs.writeFile("./db/user.json", JSON.stringify(arr), (err) => {
+      res.send("added");
+    });
     
   });
 });
+
+router.get("/watch", (req,res) => {
+  
+  console.log(req.query.email)
+  const u = req.query.email;
+
+  // const user = req.body.email;
+
+  fs.readFile("./db/user.json", "utf8", (err, data) => {
+    let arr = JSON.parse(data);
+    // res.send(arr)
+
+    const admin = arr.find((user) => user.email == u);
+    console.log(admin)
+
+    if (admin) {
+      res.send(admin.watchlist);
+    }
+    else{
+      res.status(400).send("Not logged in")
+     console.log("not")
+    }
+    
+  });
+
+})
+
 
 module.exports = router;

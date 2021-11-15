@@ -40,8 +40,6 @@ function Details(props) {
       });
   };
 
-  // https://api.jikan.moe/v3/anime/${id}
-
   return (
     <div>
       <div>
