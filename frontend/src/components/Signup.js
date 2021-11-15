@@ -1,5 +1,6 @@
 import axios from "axios";
 import React from 'react'
+import { Link } from "react-router-dom";
 
 const Signup = () => {
     const addUser = (e) => {
@@ -62,6 +63,14 @@ const Signup = () => {
         >
           SignUp
         </button>
+        <Link
+            style={{ color: "white" }}
+            to="/login"
+            style={{ textDecoration: "none", color: "white" }}
+          >
+            {" "}
+            Or log in
+          </Link>
       </form>
         </div>
     )
