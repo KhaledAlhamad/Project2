@@ -1,8 +1,7 @@
-
 import './App.css';
 import axios from 'axios';
 import React,{ useEffect, useState} from 'react';
-import { BrowserRouter as Router, Route} from 'react-router-dom'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import Home from './components/Home';
 import Navbar from './components/Navbar';
 import Details from './components/Details';
@@ -14,76 +13,52 @@ import Signup from './components/Signup';
 import Profile from './components/Profile';
 
 function App() {
-  const [animes, setAnimes] = useState([])
-  // const [anime, setAnime] = useState([])
+  const [airing, setAiring] = useState([])
+  const [anime, setAnime] = useState([])
   //ADDED K
   const [logged, setLogged] = useState(false);
-  
-  useEffect(() => {
-    axios.get("https://api.jikan.moe/v3/top/anime/1/airing").then((res) => {
-      res.data.top.length > 13
-        ? setAnimes(res.data.top.slice(0, 12)) : res.data.top.length > 7
-        ? setAnimes(res.data.top.slice(0, 6)) : res.data.top.length == 1
-        ? setAnimes(res.data.top) 
-        : setAnimes([]);
-      console.log(res.data.top);
-    });
-    // axios.get("https://api.jikan.moe/v3/anime/1").then((res) => {
-    //   setAnime(res.data);
-    //   console.log(res.data.top);
-    // });
-  }, []);
-  /*
-  axios.get("http://localhost:8080/anime/top").then((res) => {
-      setAnime(res.data.top);
-      // console.log(res.data.top)
-      // console.log(anime[0].title)
-    });
-  }, []);
-  const getInfo = (e) => {
-    axios.get(`http://localhost:8080/anime/${e}`).then((res) => {
-      setDetails(res.data.top);
-      console.log(details);
-    });
-  }
-  const getDetails = (e) => {
-    axios.get(`http://localhost:8080/anime/${e}/reviews/1`).then((res) => {
-      setDetails(res.data.top);
-      console.log(details);
-    });
-  }*/
+  const [top, setTop] = useState([])
 
+  // GET Airing
+  useEffect(() => {
+    axios.get('http://localhost:8080/anime/airing').then((res) =>{
+      setAiring(res.data.top.slice(0,6));
+      console.log(res.data.top)
+    })
+  }, [])
+  // GET Top
+  useEffect(() => {
+    axios.get('http://localhost:8080/anime/top').then((res) =>{
+      setTop(res.data.top.slice(0,6));
+      console.log(res.data.top)
+    })
+  }, [])
   // const top = anime.slice(1, 6);
   return (
     <LogContext.Provider value={{ logged, setLogged }}>
-
       <Router>
         <div className="App">
           <Navbar />
           <Sidebar />
           <header className="App-header">
-            <Route exact path="/">
-              <Home names={animes} />
+            <Routes>
+            <Route exact path="/" element ={<Home airing={airing} top={top} />}>
             </Route>
-            <Route path="/Home">
-              <Home names={animes} />
+            <Route exact path="/Home" element ={<Home airing={airing} top={top} />} >
             </Route>
-            <Route path="/Details">
-              <Details />
+            <Route exact path="/Details/:id" element ={<Details airing={airing} top={top} />} >
             </Route>
-            <Route path="/Login">
-              <Login />
+            <Route path="/Login" element={<Login/>}>
             </Route>
-            <Route path="/signup">
-              <Signup />
+            <Route path="/signup" element={<Signup />}>
             </Route>
-            <Route path="/profile"><Profile />
+            <Route path="/profile" element={<Profile />}>
             </Route>
+            </Routes>
           </header>
         </div>
       </Router>
     </LogContext.Provider>
   );
 }
-
 export default App;
