@@ -1,41 +1,62 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 // import { addVideo, clearVideo } from "../reducers/video/video";
 import { Link } from "react-router-dom";
-import axios from 'axios';
+import axios from "axios";
+import { useParams } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { addWatch } from "../reducers/watch/watch";
 
-function Details() {
+
+function Details(props) {
+  const { id } = useParams();
   const state = useSelector((state) => {
-    return { details: state.details.details };
+    return { user: state.user.user };
   });
-  const [anime,setAnime] = useState()
+  const dispatch = useDispatch();
 
-const [detail, setDetail] = useState()
+  const [detail, setDetail] = useState();
 
-console.log(id)
+  console.log(id);
   useEffect(() => {
-    axios.get(`http://localhost:8080/anime/${state.details}`).then((res) => {
-      setAnime(res.data);
-      console.log("resres",res.data);
-    }).catch((err) => {
-      console.log("err",err);
+    axios.get(`https://api.jikan.moe/v3/anime/${id}`).then((res) => {
+      // console.log(id)
+      setDetail(res.data);
+      console.log(res);
+      console.log(state.user);
     });
   }, []);
+
+  const addWatch = (e) => {
+    console.log(e);
+    axios
+      .post("http://localhost:8080/user/watch", {
+        details: e,
+        email: state.user.email,
+      })
+      .then((res) => {
+        console.log(res.data)
+        // dispatch(addWatch(res.data))
+
+      });
+  };
+
+  // https://api.jikan.moe/v3/anime/${id}
+
   return (
+    <div>
       <div>
-        <div>
         <div id="details_root">
-          <div id="image_and_title">
-          <div>
-          <h2 className="details_title">{detail?.title}</h2>
-          <p className="details_title_alt">{detail?.title_japanese}</p>
-          <p className="details_description">{detail?.synopsis}</p>
-          <h6 className="details_score">{detail?.score}</h6>
-          <h6 className="details_scored_by">{detail?.scored_by}</h6>
-          </div>
-          <div>
-            <img src={detail?.image_url}/>
-          </div>
+          <div className="image_and_title">
+            <div>
+              <h2 className="details_title">{detail?.title}</h2>
+              <p className="details_title_alt">{detail?.title_japanese}</p>
+              <p className="details_description">{detail?.synopsis}</p>
+              <h6 className="details_score">{detail?.score}</h6>
+              <h6 className="details_scored_by">{detail?.scored_by}</h6>
+            </div>
+            <div>
+              <img src={detail?.image_url} />
+            </div>
           </div>
           <ul className="details_ul">
             <li>
@@ -62,17 +83,24 @@ console.log(id)
               Duration: <span>{detail?.duration}</span>
             </li>
             <li>
-              Genre: <span>{detail?.genres.length>0?detail.genres.reduce((accomulator,current)=> " "+current?.name):""}</span>
+              Genre:{" "}
+              <span>
+                {detail?.genres.length > 0
+                  ? detail.genres.reduce(
+                      (accomulator, current) => " " + current?.name
+                    )
+                  : ""}
+              </span>
             </li>
             <li>
               Views: <span>{detail?.members}</span>
             </li>
           </ul>
-          <button onClick={addWatch(detail)}>Add to Watch </button>
+          <button onClick={() => addWatch(detail)}>Add to Watch </button>
         </div>
       </div>
 
-        {/* <div id="details_root">
+      {/* <div id="details_root">
           <h2 className="details_title">{props.name.title}</h2>
           <p className="details_title_alt">{props.name.title_japanese}</p>
           <p className="details_description">{props.name.synopsis}</p>
@@ -110,10 +138,8 @@ console.log(id)
             </li>
           </ul>
         </div> */}
-      </div>
+    </div>
   );
 }
 
 export default Details;
-
-
