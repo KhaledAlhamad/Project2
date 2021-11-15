@@ -1,35 +1,31 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+// import { addVideo, clearVideo } from "../reducers/video/video";
 import { Link } from "react-router-dom";
 import axios from 'axios';
-import {useParams} from "react-router-dom"
 
-function Details(props) {
-  const {id} = useParams();
+function Details() {
+  const state = useSelector((state) => {
+    return { details: state.details.details };
+  });
+  const [anime,setAnime] = useState()
 
 const [detail, setDetail] = useState()
 
 console.log(id)
   useEffect(() => {
-    axios.get(`https://api.jikan.moe/v3/anime/${id}`).then((res) =>{
-      // console.log(id)
-      setDetail(res.data);
-      console.log(res)
-
-    })
-  }, [])
-
-  const addWatch = (e) => {
-console.log("button " + e)
-  }
-
-  // https://api.jikan.moe/v3/anime/${id}
-
+    axios.get(`http://localhost:8080/anime/${state.details}`).then((res) => {
+      setAnime(res.data);
+      console.log("resres",res.data);
+    }).catch((err) => {
+      console.log("err",err);
+    });
+  }, []);
   return (
       <div>
         <div>
         <div id="details_root">
-          <div className="image_and_title">
+          <div id="image_and_title">
           <div>
           <h2 className="details_title">{detail?.title}</h2>
           <p className="details_title_alt">{detail?.title_japanese}</p>
@@ -107,10 +103,10 @@ console.log("button " + e)
               Duration: <span>{anime?.duration}</span>
             </li>
             <li>
-              Genre: <span>{anime?.genres.length>0?anime.genres.reduce((accomulator,current)=> " "+current?.name):""}</span>
+              Quality: <span>{anime?.type}</span>
             </li>
             <li>
-              Views: <span>{anime?.members}</span>
+              Views: <span>{anime?.type}</span>
             </li>
           </ul>
         </div> */}

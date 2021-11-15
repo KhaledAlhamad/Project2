@@ -64,10 +64,6 @@
   align-items: flex-start;
   padding: 20px;
 }
-.image_and_title{
-  display: flex;
-  flex-direction: row;
-}
 .details_title{}
 .details_title_alt{
   color: #9b9b9b;
