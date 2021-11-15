@@ -47,7 +47,7 @@ function Home(props) {
                           </ul> */}
                           <h5>
                             <a>
-                              <Link to="/details">{e.title}</Link>{" "}
+                              <Link to={`/Details/${e.mal_id}`} >{e.title}</Link>{" "}
                             </a>
                           </h5>
                         </div>
@@ -86,7 +86,9 @@ function Home(props) {
                             <li>Movie</li>
                           </ul>
                           <h5>
-                            <a href="#">{e.title}</a>
+                          <a>
+                              <Link to={`/Details/${e.mal_id}`} >{e.title}</Link>{" "}
+                            </a>
                           </h5>
                         </div>
                       </div>
