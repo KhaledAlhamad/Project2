@@ -19,25 +19,27 @@ function App() {
   const [logged, setLogged] = useState(false);
   const [top, setTop] = useState([])
 
-  // GET Airing 
+
   useEffect(() => {
     axios.get('http://localhost:8080/anime/airing').then((res) =>{
       setAiring(res.data.top.slice(0,6));
       console.log(res.data.top)
     })
   }, [])
-
-  // GET Top 
+  // GET Top
   useEffect(() => {
     axios.get('http://localhost:8080/anime/top').then((res) =>{
       setTop(res.data.top.slice(0,6));
       console.log(res.data.top)
     })
   }, [])
+// <<<<<<< yasser
+//   // const top = anime.slice(1, 6);
+// =======
 
+// >>>>>>> main
   return (
     <LogContext.Provider value={{ logged, setLogged }}>
-
       <Router>
         <div className="App">
           <Navbar />
@@ -45,18 +47,13 @@ function App() {
           <header className="App-header">
             <Routes>
             <Route exact path="/" element ={<Home airing={airing} top={top} />}>
-            
             </Route>
             <Route exact path="/Home" element ={<Home airing={airing} top={top} />} >
             </Route>
-            
             <Route exact path="/Details/:id" element ={<Details airing={airing} top={top} />} >
             </Route>
-            
             <Route path="/Login" element={<Login/>}>
-              
             </Route>
-
             <Route path="/signup" element={<Signup />}>
             </Route>
             <Route path="/profile" element={<Profile />}>
@@ -68,5 +65,4 @@ function App() {
     </LogContext.Provider>
   );
 }
-
 export default App;

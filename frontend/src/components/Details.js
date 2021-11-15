@@ -1,9 +1,6 @@
-import React from "react";
-// import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
 // import { addVideo, clearVideo } from "../reducers/video/video";
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
-import { useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -100,6 +97,45 @@ function Details(props) {
           <button onClick={() => addWatch(detail)}>Add to Watch </button>
         </div>
       </div>
+
+      {/* <div id="details_root">
+          <h2 className="details_title">{props.name.title}</h2>
+          <p className="details_title_alt">{props.name.title_japanese}</p>
+          <p className="details_description">{props.name.synopsis}</p>
+          <h6 className="details_score">{props.name.score}</h6>
+          <h6 className="details_scored_by">{props.name.scored_by}</h6>
+          <ul className="details_ul">
+            <li>
+              Type: <span>{anime?.type}</span>
+            </li>
+            <li>Studios:{anime.studios[0].name}</li>
+            <li>
+              Date aired: <span>{anime?.type}</span>
+            </li>
+            <li>
+              Status: <span>{anime?.status}</span>
+            </li>
+            <li>Genre:{anime.genres.map((ee)=>{return(<p>{ee.name}</p>)})}</li>
+            <li>
+              Score:{" "}
+              <span>
+                {anime?.score}/{anime?.scored_by}
+              </span>
+            </li>
+            <li>
+              Rating: <span>{anime?.rating}</span>
+            </li>
+            <li>
+              Duration: <span>{anime?.duration}</span>
+            </li>
+            <li>
+              Quality: <span>{anime?.type}</span>
+            </li>
+            <li>
+              Views: <span>{anime?.type}</span>
+            </li>
+          </ul>
+        </div> */}
     </div>
   );
 }

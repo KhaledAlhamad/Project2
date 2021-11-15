@@ -1,13 +1,17 @@
 import React from "react";
-// import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-// import font
+import { setID } from "../reducers/details/details";
 
 function Home(props) {
+  const dispatch = useDispatch();
+  const state = useSelector((state) => {
+    return { details: state.details.details };
+  });
   return (
     // HERO SECTION
 
-    // <div id="parent">
+    // <div id="parent"><div id="parent">
 
     <section className="product spad">
       <div class="container">
@@ -24,6 +28,7 @@ function Home(props) {
               <div className="row">
                 {props?.airing?.map((e, i) => {
                   return (
+                    
                     <div class="col-lg-4 col-md-6 col-sm-6">
                       <div class="product__item">
                         <div
