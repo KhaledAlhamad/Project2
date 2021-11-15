@@ -26,9 +26,7 @@ function Profile (){
     console.log(state.user.email);
     const u = state.user.email;
     axios
-      .get("http://localhost:8080/user/watch", JSON.stringify({
-        email: "aa"
-      }))
+      .get(`http://localhost:8080/user/watch?email=${state.user.email}`)
       .then((res) => {
         console.log(res.data)
         // dispatch(addWatch(res.data))

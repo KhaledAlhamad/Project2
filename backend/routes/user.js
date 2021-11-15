@@ -83,27 +83,27 @@ router.post("/watch", (req, res) => {
 
 router.get("/watch", (req,res) => {
   
-  console.log(req.body.email)
+  console.log(req.query.email)
+  const u = req.query.email;
 
   // const user = req.body.email;
 
-  // fs.readFile("./db/user.json", "utf8", (err, data) => {
-  //   let arr = JSON.parse(data);
-  //   // res.send(arr)
+  fs.readFile("./db/user.json", "utf8", (err, data) => {
+    let arr = JSON.parse(data);
+    // res.send(arr)
 
-  //   const admin = arr.find((user) => user.email == req.body.email);
-  //   console.log(admin)
-  //   if (admin) {
-  //     res.send(admin.watchlist);
+    const admin = arr.find((user) => user.email == u);
+    console.log(admin)
 
-     
-  //   }
-  //   else{
-  //     res.status(400).send("Not logged in")
-  //    console.log("not")
-  //   }
+    if (admin) {
+      res.send(admin.watchlist);
+    }
+    else{
+      res.status(400).send("Not logged in")
+     console.log("not")
+    }
     
-  // });
+  });
 
 })
 
