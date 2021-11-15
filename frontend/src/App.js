@@ -2,7 +2,7 @@
 import './App.css';
 import axios from 'axios';
 import React,{ useEffect, useState} from 'react';
-import { BrowserRouter as Router, Route, Switch} from 'react-router-dom'
+import { BrowserRouter as Router, Route} from 'react-router-dom'
 import Home from './components/Home';
 import Navbar from './components/Navbar';
 import Details from './components/Details';
@@ -15,7 +15,7 @@ import Profile from './components/Profile';
 
 function App() {
   const [animes, setAnimes] = useState([])
-  const [anime, setAnime] = useState([])
+  // const [anime, setAnime] = useState([])
   //ADDED K
   const [logged, setLogged] = useState(false);
   
@@ -28,10 +28,10 @@ function App() {
         : setAnimes([]);
       console.log(res.data.top);
     });
-    axios.get("https://api.jikan.moe/v3/anime/1").then((res) => {
-      setAnime(res.data);
-      console.log(res.data.top);
-    });
+    // axios.get("https://api.jikan.moe/v3/anime/1").then((res) => {
+    //   setAnime(res.data);
+    //   console.log(res.data.top);
+    // });
   }, []);
   /*
   axios.get("http://localhost:8080/anime/top").then((res) => {
@@ -42,6 +42,12 @@ function App() {
   }, []);
   const getInfo = (e) => {
     axios.get(`http://localhost:8080/anime/${e}`).then((res) => {
+      setDetails(res.data.top);
+      console.log(details);
+    });
+  }
+  const getDetails = (e) => {
+    axios.get(`http://localhost:8080/anime/${e}/reviews/1`).then((res) => {
       setDetails(res.data.top);
       console.log(details);
     });
@@ -63,7 +69,7 @@ function App() {
               <Home names={animes} />
             </Route>
             <Route path="/Details">
-              <Details name={anime} />
+              <Details />
             </Route>
             <Route path="/Login">
               <Login />

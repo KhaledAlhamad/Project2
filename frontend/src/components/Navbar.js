@@ -1,9 +1,8 @@
-import * as ReactBootStrap from "react-bootstrap";
+// import * as ReactBootStrap from "react-bootstrap";
 import React, { useContext } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import { LogContext } from "./LogContext";
-import { clearUser } from "../reducers/user/user";
 
 function Navbar() {
   const log = useContext(LogContext);
