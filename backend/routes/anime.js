@@ -9,8 +9,17 @@ const fs = require("fs")
 // GET Top 
 router.get("/top", (req,res) => {
     axios.get('https://api.jikan.moe/v3/top/anime').then((response) => {
-        // res.send(response.data)
-        console.log(response.data)
+        res.send(response.data)
+        // console.log(response.data)
+    })
+    console.log("GET TOP from anime route")
+})
+
+// GET Airing
+router.get("/airing", (req,res) => {
+    axios.get('https://api.jikan.moe/v3/top/anime/1/airing').then((response) => {
+        res.send(response.data)
+        // console.log(response.data)
     })
     console.log("GET TOP from anime route")
 })
