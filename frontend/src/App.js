@@ -19,20 +19,6 @@ function App() {
   const [logged, setLogged] = useState(false);
   const [top, setTop] = useState([])
 
-
-  /*
-  axios.get("http://localhost:8080/anime/top").then((res) => {
-      setAnime(res.data.top);
-      // console.log(res.data.top)
-      // console.log(anime[0].title)
-    });
-  }, []);
-  const getInfo = (e) => {
-    axios.get(`http://localhost:8080/anime/${e}`).then((res) => {
-      setDetails(res.data.top);
-      console.log(details);
-    });
-  }*/
   // GET Airing 
   useEffect(() => {
     axios.get('http://localhost:8080/anime/airing').then((res) =>{
@@ -49,7 +35,6 @@ function App() {
     })
   }, [])
 
-  // const top = anime.slice(1, 6);
   return (
     <LogContext.Provider value={{ logged, setLogged }}>
 
