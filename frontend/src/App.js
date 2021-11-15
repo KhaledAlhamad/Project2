@@ -1,8 +1,7 @@
-
 import './App.css';
 import axios from 'axios';
 import React,{ useEffect, useState} from 'react';
-import { BrowserRouter as Router, Route, Switch} from 'react-router-dom'
+import { BrowserRouter as Router, Route, Routes , Switch} from 'react-router-dom'
 import Home from './components/Home';
 import Navbar from './components/Navbar';
 import Details from './components/Details';
@@ -59,23 +58,25 @@ function App() {
           <Navbar />
           <Sidebar />
           <header className="App-header">
-            <Route exact path="/">
-              <Home airing={airing} top={top} />
+            <Routes>
+            <Route exact path="/" element ={<Home airing={airing} top={top} />}>
+            
             </Route>
-            <Route path="/Home">
-              <Home airing={airing} top={top}/>
+            <Route exact path="/Home" element ={<Home airing={airing} top={top} />} >
             </Route>
-            <Route path="/Details">
-              <Details name={anime} />
+            
+            <Route exact path="/Details/:id" element ={<Details airing={airing} top={top} />} >
             </Route>
-            <Route path="/Login">
-              <Login />
+            
+            <Route path="/Login" element={<Login/>}>
+              
             </Route>
-            <Route path="/signup">
-              <Signup />
+
+            <Route path="/signup" element={<Signup />}>
             </Route>
-            <Route path="/profile"><Profile />
+            <Route path="/profile" element={<Profile />}>
             </Route>
+            </Routes>
           </header>
         </div>
       </Router>

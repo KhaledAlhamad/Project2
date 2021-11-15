@@ -17,11 +17,6 @@ function Navbar() {
       <Link className="Link_home" to="/Home">
         ANIME LIST
       </Link>
-      <div id="Nav">
-        <Link className="Link" to="/Details">
-          Details
-        </Link>
-      </div>
 
       {/* ADDED K */}
       {log.logged ? (
