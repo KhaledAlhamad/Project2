@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-// import { addVideo, clearVideo } from "../reducers/video/video";
 import { Link } from "react-router-dom";
 import axios from 'axios';
+import { useParams } from "react-router-dom";
 
 function Details() {
   const state = useSelector((state) => {
     return { details: state.details.details };
   });
   const [anime,setAnime] = useState()
+  const {id} = useParams();
 
   useEffect(() => {
-    axios.get(`http://localhost:8080/anime/${state.details}`).then((res) => {
+    axios.get(`http://localhost:8080/anime/${id}`).then((res) => {
       setAnime(res.data);
       console.log("resres",res.data);
     }).catch((err) => {
@@ -21,7 +22,7 @@ function Details() {
   return (
       <div>
         <div id="details_root">
-          <div id="image_and_title">
+          <div className="image_and_title">
           <div>
           <h2 className="details_title">{anime?.title}</h2>
           <p className="details_title_alt">{anime?.title_japanese}</p>
@@ -58,10 +59,10 @@ function Details() {
               Duration: <span>{anime?.duration}</span>
             </li>
             <li>
-              Quality: <span>{anime?.type}</span>
+              Genre: <span>{anime?.genres.length>0?anime.genres.reduce((accomulator,current)=> " "+current?.name):""}</span>
             </li>
             <li>
-              Views: <span>{anime?.type}</span>
+              Views: <span>{anime?.members}</span>
             </li>
           </ul>
         </div>
