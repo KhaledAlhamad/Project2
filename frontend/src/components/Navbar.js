@@ -1,12 +1,16 @@
 import * as ReactBootStrap from "react-bootstrap";
-import React, { useState } from "react";
-// import { useDispatch, useSelector } from "react-redux";
+import React, { useContext } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
-import { useContext } from "react";
 import { LogContext } from "./LogContext";
+import { clearUser } from "../reducers/user/user";
 
 function Navbar() {
   const log = useContext(LogContext);
+  const state = useSelector((state) => {
+    return { user: state.user.user };
+  });
+  const dispatch = useDispatch();
 
   return (
     <div id="navbar">
@@ -20,35 +24,33 @@ function Navbar() {
       </div>
 
       {/* ADDED K */}
-      
-      <a class="Nav " href="#">
-        <Link
-          className="Link"
-          to="/login"
-          style={{ textDecoration: "none", color: "black" }}
-        >
-          {log.logged ? (
+      {log.logged ? (
+        <a class="Nav " href="#">
+          <Link
+            className="Link"
+            to="/profile"
+            style={{ textDecoration: "none", color: "black" }}
+          >
             <button
               type="submit"
-              class="btn btn-danger btn-sm"
-              onClick={() => {
-                log.setLogged(false);
-              }}
+              class="btn btn-light btn-sm"
             >
-              LogOut{" "}
+              {state.user.email}
             </button>
-          ) : (
-            "Log in"
-          )}
-        </Link>
-      </a>
+          </Link>
+        </a>
+      ) : (
+        <a class="Nav " href="#">
+          <Link
+            className="Link"
+            to="/login"
+            style={{ textDecoration: "none", color: "black" }}
+          >
+            Log in
+          </Link>
+        </a>
+      )}
       {/* ADDED K END  */}
-      
-      {/* <div id="Nav">
-            <Link className="Link" to="/Login">
-              LOGIN
-            </Link>
-          </div> */}
     </div>
   );
 }

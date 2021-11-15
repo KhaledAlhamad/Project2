@@ -11,44 +11,13 @@ import Sidebar from './components/Sidebar';
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import { LogContext } from "./components/LogContext";
 import Signup from './components/Signup';
-
+import Profile from './components/Profile';
 
 function App() {
   const [animes, setAnimes] = useState([])
   const [anime, setAnime] = useState([])
   //ADDED K
   const [logged, setLogged] = useState(false);
-
-  // useEffect(() => {
-  //   axios.get('https://api.jikan.moe/v3/top/anime/1/airing').then((res) =>{
-  //     // res.data.top.length>13?setAnimes(res.data.top.slice(0,12)):
-  //     setAnimes(res.data.top.slice(0,6));
-  //     // res.data.top.length==1?setAnimes(res.data.top):
-  //     // setAnimes([])
-  //     console.log(res.data.top)
-  //   })
-  //   axios.get('https://api.jikan.moe/v3/anime/1').then((res) =>{
-  //     setAnime(res.data)
-  //     console.log(res.data.top)
-  //   })
-    
-  // }, [])
-
-  // GET Airing 
-  useEffect(() => {
-    axios.get('http://localhost:8080/anime/airing').then((res) =>{
-      setAnimes(res.data.top.slice(0,6));
-      console.log(res.data.top)
-    })
-  }, [])
-  // GET Top 
-  // useEffect(() => {
-  //   axios.get('http://localhost:8080/anime/airing').then((res) =>{
-  //     setAnimes(res.data.top.slice(0,6));
-  //     console.log(res.data.top)
-  //   })
-  // }, [])
-
 
   /*
   axios.get("http://localhost:8080/anime/top").then((res) => {
@@ -67,31 +36,33 @@ function App() {
   // const top = anime.slice(1, 6);
   return (
     <LogContext.Provider value={{ logged, setLogged }}>
-      
-    <Router>
-      <div className="App">
-      <Navbar />
-      <Sidebar />
-        <header className="App-header">
-        <Route exact path="/">
-          <Home names={animes} />
-        </Route>
-        <Route path="/Home">
-          <Home names={animes} />
-        </Route>
-        <Route path="/Details">
-          <Details name={anime} />
-        </Route>
-        <Route path="/Login">
-          <Login />
-        </Route>
-        <Route path="/signup">
-          <Signup />
-        </Route>
-        </header>
-      </div>
-    </Router>
-    </ LogContext.Provider>
+
+      <Router>
+        <div className="App">
+          <Navbar />
+          <Sidebar />
+          <header className="App-header">
+            <Route exact path="/">
+              <Home names={animes} />
+            </Route>
+            <Route path="/Home">
+              <Home names={animes} />
+            </Route>
+            <Route path="/Details">
+              <Details name={anime} />
+            </Route>
+            <Route path="/Login">
+              <Login />
+            </Route>
+            <Route path="/signup">
+              <Signup />
+            </Route>
+            <Route path="/profile"><Profile />
+            </Route>
+          </header>
+        </div>
+      </Router>
+    </LogContext.Provider>
   );
 }
 

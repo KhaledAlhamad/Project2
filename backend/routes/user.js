@@ -26,7 +26,7 @@ router.post("/signup", (req, res) => {
       return res.status(400).send("Email already exist");
     }
      else {
-      const newUser = { email: req.body.email, password: req.body.password };
+      const newUser = { email: req.body.email, password: req.body.password, userName: "", reviews:[], watchlist:[] };
       arr.push(newUser);
       fs.writeFile("./db/user.json", JSON.stringify(arr), (err) => {
         res.send("added");
@@ -51,7 +51,7 @@ router.post("/login", (req, res) => {
     if (user.password !== req.body.password) {
       return res.status(400).send("Password is NOT correct");
     }
-    return res.send("Success");
+    return res.send(user);
   });
 });
 
