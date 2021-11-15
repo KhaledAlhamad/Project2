@@ -18,21 +18,7 @@ function App() {
   const [anime, setAnime] = useState([])
   //ADDED K
   const [logged, setLogged] = useState(false);
-  
-  useEffect(() => {
-    axios.get("https://api.jikan.moe/v3/top/anime/1/airing").then((res) => {
-      res.data.top.length > 13
-        ? setAnimes(res.data.top.slice(0, 12)) : res.data.top.length > 7
-        ? setAnimes(res.data.top.slice(0, 6)) : res.data.top.length == 1
-        ? setAnimes(res.data.top) 
-        : setAnimes([]);
-      console.log(res.data.top);
-    });
-    axios.get("https://api.jikan.moe/v3/anime/1").then((res) => {
-      setAnime(res.data);
-      console.log(res.data.top);
-    });
-  }, []);
+
   /*
   axios.get("http://localhost:8080/anime/top").then((res) => {
       setAnime(res.data.top);
