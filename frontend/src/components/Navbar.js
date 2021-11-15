@@ -20,10 +20,10 @@ function Navbar() {
       {/* ADDED K */}
       {log.logged ? (
         <a class="Nav " href="#">
-          <Link
+          <Link 
             className="Link"
             to="/profile"
-            style={{ textDecoration: "none", color: "black" }}
+            // style={{ textDecoration: "none", color: "black" }}
           >
             <button
               type="submit"
@@ -38,7 +38,7 @@ function Navbar() {
           <Link
             className="Link"
             to="/login"
-            style={{ textDecoration: "none", color: "black" }}
+            // style={{ textDecoration: "none", color: "black" }}
           >
             Log in
           </Link>
