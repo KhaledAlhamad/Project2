@@ -107,5 +107,28 @@ router.get("/watch", (req,res) => {
 
 })
 
+router.delete("/watch", (req,res) => {
+  const u = req.body.email;
+  let i=0;
+  const id = req.body.id;
+  fs.readFile("./db/user.json", "utf8", (err, data) => {
+    let arr = JSON.parse(data);
+    const admin = arr.find((user,index) => {i=index; return user.email == u});
+    if (admin) {
+      admin.watchlist=admin.watchlist.filter((e) => e.mal_id !== id)
+      arr[i]=admin
+      fs.writeFile("./db/user.json", JSON.stringify(arr), (err) => {
+        res.send(arr);
+      });
+    }
+    else{
+      res.status(400).send("Not logged in")
+     console.log("not")
+    }
+    
+  });
+
+})
+
 
 module.exports = router;

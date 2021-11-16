@@ -1,12 +1,11 @@
 .App {
   /* text-align: center; */
-  line-height: 2.5rem;
   font-family: 'Abel', sans-serif;
   position: relative;
 }
 
 .App-header {
-  background-color: #282c34;
+	background-image: linear-gradient(#081122, #172e5e);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -28,7 +27,7 @@
   justify-content: space-around;
 }
 #navbar{
-  background: #1b1e24;
+  background: #030a16;
   height: 50px;
   align-items: center;
   display: flex;
@@ -36,7 +35,7 @@
   justify-content: space-around;
   position: relative;
 }
-.Link_home,.Link{
+.Link_home,.Link,.Nav {
   text-decoration: none;
   color: white;
 }
@@ -58,18 +57,25 @@
   
 }
 .item{}
+.image_and_title{
+	display: flex;
+	flex-direction: row;
+	column-gap: 15px;
+}
 #details_root{
+	
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   padding: 20px;
 }
-.details_title{}
+p{font-size: 18px;}
+.details_title{color:rgb(236, 236, 236);}
 .details_title_alt{
   color: #9b9b9b;
 }
 .details_description{
-  max-width: 100ch;
+  max-width: 120ch;
   color: #9b9b9b;
 }
 .details_score{}
@@ -77,8 +83,8 @@
 .details_ul{
   list-style-type: square;
   display: grid;
-  grid-template-columns: 50% 50%;
-  column-gap: 25%;
+  grid-template-columns: 60% 60%;
+  column-gap: 10%;
     color: #9b9b9b;
 }
 .details_ul>li{
@@ -87,8 +93,36 @@
   align-self: flex-start;
 }
 .details_ul>li>span{
-  padding-left: 50px;
+  padding-left: 40px;
   color: white;
+}
+@media (max-width:790px){
+	.details_ul{
+		display: grid;
+		grid-template-columns: 45% 45%;
+		column-gap: 5%;
+		  color: #9b9b9b;
+	  }
+}
+@media (max-width:550px){
+	.image_and_title{
+		flex-direction: column;
+		column-gap: 15px;
+	}
+	.details_ul{
+		display: grid;
+		grid-template-columns: 50% 50%;
+		column-gap: 5%;
+		  color: #9b9b9b;
+	  }
+	.details_ul{
+		font-size: 1rem;
+		color: #9b9b9b;
+	  }
+	  .details_ul>li>span{
+		padding-left: 1px;
+		color: white;
+	  }
 }
 
 
@@ -100,7 +134,7 @@ h4,
 h5,
 h6 {
 	margin: 0;
-	color: #111111;
+	color: #c2c2c2;
 	font-weight: 400;
 	font-family: "Mulish", sans-serif;
 }
