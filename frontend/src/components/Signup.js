@@ -1,9 +1,18 @@
 import axios from "axios";
-import React from 'react'
-import { Link } from "react-router-dom";
+import React, { useContext } from 'react'
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { LogContext } from "./LogContext";
+import { addUser } from "../reducers/user/user";
 
 const Signup = () => {
-    const addUser = (e) => {
+  const navigate = useNavigate();
+  const log = useContext(LogContext);
+  const dispatch = useDispatch();
+  const state = useSelector((state)=>{
+    return {user:state.user.user}
+  })
+    const add = (e) => {
         e.preventDefault();
     
         //ADDED
@@ -18,11 +27,14 @@ const Signup = () => {
           })
           .then((res) => {
             console.log(res.data);
+            log.setLogged(true);
+            dispatch(addUser(res.data))
           });
       };
 
     return (
         <div>
+          {log.logged?navigate('../Profile', {replace:true}):
             <form>
         <div class="form-group">
           <h1>SignUp</h1>
@@ -58,7 +70,7 @@ const Signup = () => {
           type="submit"
           class="btn btn-success btn-lg"
           onClick={(e) => {
-            addUser(e);
+            add(e);
           }}
         >
           SignUp
@@ -71,7 +83,7 @@ const Signup = () => {
             {" "}
             Or log in
           </Link>
-      </form>
+      </form>}
         </div>
     )
 }
