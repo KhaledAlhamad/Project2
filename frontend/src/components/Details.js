@@ -1,22 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState , useContext} from "react";
 // import { addVideo, clearVideo } from "../reducers/video/video";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useParams} from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { addWatch } from "../reducers/watch/watch";
+import { LogContext } from "./LogContext";
+
 
 function Details(props) {
   const { id } = useParams();
+  const log = useContext(LogContext);
   const state = useSelector((state) => {
     return { user: state.user.user };
   });
   const dispatch = useDispatch();
-
   const [detail, setDetail] = useState([]);
   const [MALreviews, setMALreviews] = useState([]);
   const [newReview, setNewReview] = useState(false);
-
   console.log(id);
   useEffect(() => {
     axios.get(`http://localhost:8080/anime/${id}`).then((res) => {
@@ -102,7 +103,7 @@ function Details(props) {
             <li>
               Score:{" "}
               <span>
-                {detail[0]?.score}/{detail[0]?.scored_by}
+                {detail[0]?.score}/10  <span>from {detail[0]?.scored_by} users</span>
               </span>
             </li>
             <li>
@@ -124,8 +125,8 @@ function Details(props) {
             <li>
               Views: <span>{detail[0]?.members}</span>
             </li>
-          </ul>
-          <button onClick={() => addWatch(detail[0])}>Add to Watch </button>
+          </ul>{log.logged?<button onClick={() => addWatch(detail[0])}>Add to Watch </button>:<Link to="../login"></Link>}
+          
         </div>
         <div className="reviews">
           {MALreviews == "" || MALreviews == []
@@ -157,7 +158,7 @@ function Details(props) {
                   </div>
                 );
               })}
-              {state.user && Object.keys(state.user).length === 0 && Object.getPrototypeOf(state.user) === Object.prototype?"":
+              {!log.logged?"":
           <form className="review_form">
             <div class="form-group">
               <h1>Write a review</h1>
