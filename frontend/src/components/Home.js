@@ -1,13 +1,7 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { setID } from "../reducers/details/details";
 
 function Home(props) {
-  const dispatch = useDispatch();
-  const state = useSelector((state) => {
-    return { details: state.details.details };
-  });
   return (
     // HERO SECTION
 

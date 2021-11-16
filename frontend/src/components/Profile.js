@@ -107,7 +107,7 @@ function Profile() {
                               <div class="product__item__text">
                                 <h5>
                                   <a>
-                                    <Link to={`/Details/${e.mal_id}`}>
+                                    <Link to={`../Details/${e.mal_id}`}>
                                       {e.title}
                                     </Link>{" "}
                                   </a>
@@ -124,7 +124,7 @@ function Profile() {
             </div>
             {/* </div> */}
           </section>
-          <Link to="./login">
+          <Link to="../login">
             <button
               type="submit"
               class="btn btn-danger btn-lg"

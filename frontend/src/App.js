@@ -11,6 +11,7 @@ import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import { LogContext } from "./components/LogContext";
 import Signup from './components/Signup';
 import Profile from './components/Profile';
+import Search from './components/Search';
 
 function App() {
   const [airing, setAiring] = useState([])
@@ -23,7 +24,9 @@ function App() {
   useEffect(() => {
     axios.get('http://localhost:8080/anime/airing').then((res) =>{
       setAiring(res.data.top.slice(0,6));
-      console.log(res.data.top)
+      console.log(res.data.top.slice(0,6))
+      console.log(res.data.top.slice(0,6)[3])
+      console.log(airing[4])
     })
   }, [])
   // GET Top
@@ -57,6 +60,8 @@ function App() {
             <Route path="/signup" element={<Signup />}>
             </Route>
             <Route path="/profile" element={<Profile />}>
+            </Route>
+            <Route path="/Search" element={<Search />}>
             </Route>
             </Routes>
           </header>

@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link , useNavigate} from "react-router-dom";
 // import Form from "react-bootstrap/Form";
 // import Form from "react-bootstrap/Form";
 // import Button from "react-bootstrap/Button";
@@ -12,6 +12,7 @@ function Login() {
   //ADDED K
   const log = useContext(LogContext);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const state = useSelector((state)=>{
     return {user:state.user.user}
   })
@@ -45,9 +46,7 @@ function Login() {
   return (
     <div className="Login">
         {/* ADDED K */}
-        {log.logged ? (
-        <h1>You are Now logged in {state.user.email}</h1>
-      ) 
+        {log.logged ? navigate('../Profile', {replace:true})
       : (
         <form>
         <div class="form-group">

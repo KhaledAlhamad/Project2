@@ -27,12 +27,13 @@ router.post("/signup", (req, res) => {
       const newUser = {
         email: req.body.email,
         password: req.body.password,
+        userName:"",
         reviews: [],
         watchlist: [],
       };
       arr.push(newUser);
       fs.writeFile("./db/user.json", JSON.stringify(arr), (err) => {
-        res.send("added");
+        res.send(newUser);
       });
     }
   });
