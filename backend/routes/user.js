@@ -96,38 +96,65 @@ router.get("/watch", (req, res) => {
   });
 });
 
-// DELETE anime from Watchlist
-router.delete("/watch", (req, res) => {
-  // console.log(req.query.email)
-  // console.log(req.query.id)
 
-  // const user = req.query.email;
-  const anime = req.query.id;
-  // // const user = req.body.email;
+//Khaled 
+// // DELETE anime from Watchlist
+// router.delete("/watch", (req, res) => {
+//   // console.log(req.query.email)
+//   // console.log(req.query.id)
+
+//   // const user = req.query.email;
+//   const anime = req.query.id;
+//   // // const user = req.body.email;
+//   fs.readFile("./db/user.json", "utf8", (err, data) => {
+//     let arr = JSON.parse(data);
+//     // res.send(arr)
+//     const toDelete = arr.find((user) => user.email === req.query.email);
+
+//     const animeid = toDelete.watchlist.findIndex(
+//       (anime) => anime.mal_id == req.query.id
+//     );
+
+//     // console.log(animeid);
+//     console.log(toDelete.watchlist[0])
+    
+//     if (animeid > -1) {
+//      toDelete.watchlist.splice(animeid, 1);
+//     }
+//     // arr.push(toDelete);
+//     console.log(toDelete)
+    
+
+
+//     // fs.writeFile("./db/user.json", JSON.stringify(arr), (err) => {
+//     //   res.send("added");
+//     // });
+//   });
+// });
+
+
+router.delete("/watch", (req,res) => {
+  const u = req.body.email;
+  let i=0;
+  const id = req.body.id;
   fs.readFile("./db/user.json", "utf8", (err, data) => {
     let arr = JSON.parse(data);
-    // res.send(arr)
-    const toDelete = arr.find((user) => user.email === req.query.email);
-
-    const animeid = toDelete.watchlist.findIndex(
-      (anime) => anime.mal_id == req.query.id
-    );
-
-    // console.log(animeid);
-    console.log(toDelete.watchlist[0])
-    
-    if (animeid > -1) {
-     toDelete.watchlist.splice(animeid, 1);
+    const admin = arr.find((user,index) => {i=index; return user.email == u});
+    if (admin) {
+      admin.watchlist=admin.watchlist.filter((e) => e.mal_id !== id)
+      arr[i]=admin
+      fs.writeFile("./db/user.json", JSON.stringify(arr), (err) => {
+        res.send(arr);
+      });
     }
-    // arr.push(toDelete);
-    console.log(toDelete)
+    else{
+      res.status(400).send("Not logged in")
+     console.log("not")
+    }
     
-
-
-    // fs.writeFile("./db/user.json", JSON.stringify(arr), (err) => {
-    //   res.send("added");
-    // });
   });
-});
+
+})
+
 
 module.exports = router;

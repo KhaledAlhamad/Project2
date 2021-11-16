@@ -1,23 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useContext } from "react";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import { LogContext } from "./LogContext";
 import { clearUser } from "../reducers/user/user";
-import { addWatch, clearWatch } from "../reducers/watch/watch";
-
-
 import { useState } from "react";
-import axios from 'axios'
+import axios from "axios";
 
-function Profile (){
-  const [watch, setWatch] = useState([])
-    const log = useContext(LogContext);
+function Profile() {
+  const [watch, setWatch] = useState([]);
+  const [show, setShow] = useState(false);
+  const log = useContext(LogContext);
   const state = useSelector((state) => {
     return {
       user: state.user.user,
-      details: state.details.details,
-      watch: state.watch.watch,
     };
   });
   const dispatch = useDispatch();
@@ -26,52 +22,61 @@ function Profile (){
     dispatch(clearUser(state.user));
     log.setLogged(false);
   };
-  let removeItem = (num) => {};
-//   return (
-//     <div>
-//       {log.logged ? (
-//         <div>
-//           <h1>Email: {state.user.email}</h1>
-//           <Link to="./login">
-//             <button
-//   let clear = () =>{
-//       dispatch(clearUser(state.user))
-//       log.setLogged(false)
-//   }
+  let removeItem = (num) => {
+    console.log("removeitem", num.mal_id);
+    console.log("email",state.user.email);
+    const u = state.user.email;
+    axios
+      .delete(`http://localhost:8080/user/watch`, {data:{
+        email: state.user.email,
+        id: num.mal_id
+      }})
+      .then((res) => {
+        console.log("deleted data",res.data);
+        setWatch(res.data)
+      });
+  };
 
-  console.log(state.user)
-  
+  //   return (
+  //     <div>
+  //       {log.logged ? (
+  //         <div>
+  //           <h1>Email: {state.user.email}</h1>
+  //           <Link to="./login">
+  //             <button
+  //   let clear = () =>{
+  //       dispatch(clearUser(state.user))
+  //       log.setLogged(false)
+  //   }
+
+  console.log(state.user);
+
   const getWatch = () => {
+    setShow(!show)
     console.log(state.user.email);
     const u = state.user.email;
     axios
       .get(`http://localhost:8080/user/watch?email=${state.user.email}`)
       .then((res) => {
-        console.log(res.data)
+        console.log(res.data);
         // dispatch(addWatch(res.data))
-
+        setWatch(res.data);
+        //console.log('res dot dot data',res.data)
       });
   };
-    return(
+  return (
     <div>
-      <button onClick={() => getWatch()}>Click</button>
-        <h1>Email: {state.user.email}</h1>
-        <Link to='./login'>
-        <button
-              type="submit"
-              class="btn btn-danger btn-lg"
-              onClick={() => clear()}
-            >
-              Log out
-            </button>
-          </Link>
-
+      {log.logged ? (
+        <div>
+          <h1>Email: {state.user.email}</h1>
+          <button class={show?"btn btn-outline-danger":"btn btn-outline-primary"} onClick={() => getWatch()}>{show?'Hide watchlist':'Show watchlist'}</button>
+          
           <section className="product spad">
             <div class="container">
               <div class="row">
                 <div class="col-lg">
                   <div className="trending__product">
-                    <div className="row">
+                    {show?<div className="row">
                       <div class="row">
                         <div class="col-lg col-md-8 col-sm-8">
                           <div class="section-title">
@@ -79,7 +84,7 @@ function Profile (){
                           </div>
                         </div>
                       </div>
-                      {state?.watch?.map((e, i) => {
+                      {watch?.map((e) => {
                         return (
                           <div class="col-lg-2 col-md-6 col-sm-6 ">
                             <div class="product__item">
@@ -90,7 +95,7 @@ function Profile (){
                                 }}
                               >
                                 <button
-                                  onClick={(e) => {
+                                  onClick={() => {
                                     removeItem(e);
                                   }}
                                   class="ep"
@@ -112,13 +117,22 @@ function Profile (){
                           </div>
                         );
                       })}
-                    </div>
+                    </div>:''}
                   </div>
                 </div>
               </div>
             </div>
             {/* </div> */}
           </section>
+          <Link to="./login">
+            <button
+              type="submit"
+              class="btn btn-danger btn-lg"
+              onClick={() => clear()}
+            >
+              Log out
+            </button>
+          </Link>
         </div>
       ) : (
         <h1>You're logged out</h1>
