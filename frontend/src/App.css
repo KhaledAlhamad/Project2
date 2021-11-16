@@ -96,6 +96,16 @@ p{font-size: 18px;}
   padding-left: 40px;
   color: white;
 }
+.review_form{
+	width: 50%;
+	margin: 20px;
+}
+.reviews{}
+.review_mal,.review_local{
+	padding :10px;
+	margin: 10px;
+	background-image: linear-gradient(#091327, #102141, #091327)
+}
 @media (max-width:790px){
 	.details_ul{
 		display: grid;
