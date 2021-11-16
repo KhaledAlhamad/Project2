@@ -23,14 +23,15 @@ function App() {
   useEffect(() => {
     axios.get('http://localhost:8080/anime/airing').then((res) =>{
       setAiring(res.data.top.slice(0,6));
-      console.log(res.data.top)
+      console.log(airing)
+      // console.log(res.data.top)
     })
   }, [])
   // GET Top
   useEffect(() => {
     axios.get('http://localhost:8080/anime/top').then((res) =>{
       setTop(res.data.top.slice(0,6));
-      console.log(res.data.top)
+      // console.log(res.data.top)
     })
   }, [])
 // <<<<<<< yasser

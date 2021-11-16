@@ -62,7 +62,7 @@ function Details(props) {
             </li>
             {/* <li>Studios:{detail.studios[0].name}</li> */}
             <li>
-              Date aired: <span>{detail?.aired.from.substring(0,10)}</span>
+              Date aired: <span>{detail?.aired?.from.substring(0,10)}</span>
             </li>
             <li>
               Status: <span>{detail?.status}</span>
@@ -83,8 +83,8 @@ function Details(props) {
             <li>
               Genre:{" "}
               <span>
-                {detail?.genres.length > 0
-                  ? detail.genres.reduce(
+                {detail?.genres?.length > 0
+                  ? detail?.genres?.reduce(
                       (accomulator, current) => " " + current?.name
                     )
                   : ""}
