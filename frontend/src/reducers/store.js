@@ -1,8 +1,8 @@
 import { createStore , combineReducers } from "redux";
 import watch from "./watch/watch";
 import user from "./user/user"
-import details from "./details/details";
+import search from "./search/search";
 
-const reducers = combineReducers({user,details, watch})
+const reducers = combineReducers({user,search, watch})
 const store = createStore(reducers)
 export default store;
