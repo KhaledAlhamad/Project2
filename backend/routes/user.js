@@ -14,20 +14,22 @@ router.get("/", (req, res) => {
   });
 });
 
-
-
 // ADD new user SignUp
 router.post("/signup", (req, res) => {
   fs.readFile("./db/user.json", "utf8", (err, data) => {
     let arr = JSON.parse(data);
 
     const user = arr.find((user) => user.email == req.body.email);
-    console.log(user)
+    console.log(user);
     if (user) {
       return res.status(400).send("Email already exist");
-    }
-     else {
-      const newUser = { email: req.body.email, password: req.body.password,  reviews:[], watchlist:[] };
+    } else {
+      const newUser = {
+        email: req.body.email,
+        password: req.body.password,
+        reviews: [],
+        watchlist: [],
+      };
       arr.push(newUser);
       fs.writeFile("./db/user.json", JSON.stringify(arr), (err) => {
         res.send("added");
@@ -58,77 +60,103 @@ router.post("/login", (req, res) => {
 
 // ADD to Watchlist
 router.post("/watch", (req, res) => {
-  // console.log(req.body)
-  // res.send(req.body)
   fs.readFile("./db/user.json", "utf8", (err, data) => {
     let arr = JSON.parse(data);
-    // res.send(arr)
-
     const user = arr.find((user) => user.email == req.body.email);
-    // console.log(user)
+    console.log(req.body.details.mal_id);
+    const animeid = user.watchlist.findIndex( (anime) => anime.mal_id == req.body.details.mal_id);
+    console.log(animeid)
+
     if (user == undefined) {
-     res.status(400).send("Not logged in")
+      res.status(400).send("Not logged in");
     }
-    else{
+    else if(animeid != -1){
+      res.send("anime already added to watchlist")
+    } else {
       user.watchlist.push(req.body.details);
-     res.send(user.watchlist);
+      res.send(user.watchlist);
     }
-    
+
     fs.writeFile("./db/user.json", JSON.stringify(arr), (err) => {
       res.send("added");
     });
-    
   });
 });
 
-router.get("/watch", (req,res) => {
-  
-  console.log(req.query.email)
+// GET Watchlist of single user
+router.get("/watch", (req, res) => {
+  console.log(req.query.email);
   const u = req.query.email;
-
   // const user = req.body.email;
-
   fs.readFile("./db/user.json", "utf8", (err, data) => {
     let arr = JSON.parse(data);
     // res.send(arr)
-
     const admin = arr.find((user) => user.email == u);
-    console.log(admin)
+    // console.log(admin)
 
     if (admin) {
       res.send(admin.watchlist);
+    } else {
+      res.status(400).send("Not logged in");
+      console.log("not");
     }
-    else{
-      res.status(400).send("Not logged in")
-     console.log("not")
-    }
-    
   });
+});
 
-})
+//Khaled
+// // DELETE anime from Watchlist
+// router.delete("/watch", (req, res) => {
+//   // console.log(req.query.email)
+//   // console.log(req.query.id)
 
-router.delete("/watch", (req,res) => {
+//   // const user = req.query.email;
+//   const anime = req.query.id;
+//   // // const user = req.body.email;
+//   fs.readFile("./db/user.json", "utf8", (err, data) => {
+//     let arr = JSON.parse(data);
+//     // res.send(arr)
+//     const toDelete = arr.find((user) => user.email === req.query.email);
+
+//     const animeid = toDelete.watchlist.findIndex(
+//       (anime) => anime.mal_id == req.query.id
+//     );
+
+//     // console.log(animeid);
+//     console.log(toDelete.watchlist[0])
+
+//     if (animeid > -1) {
+//      toDelete.watchlist.splice(animeid, 1);
+//     }
+//     // arr.push(toDelete);
+//     console.log(toDelete)
+
+//     // fs.writeFile("./db/user.json", JSON.stringify(arr), (err) => {
+//     //   res.send("added");
+//     // });
+//   });
+// });
+
+router.delete("/watch", (req, res) => {
   const u = req.body.email;
-  let i=0;
+  let i = 0;
   const id = req.body.id;
   fs.readFile("./db/user.json", "utf8", (err, data) => {
     let arr = JSON.parse(data);
-    const admin = arr.find((user,index) => {i=index; return user.email == u});
+    const admin = arr.find((user, index) => {
+      i = index;
+      return user.email == u;
+    });
     if (admin) {
-      admin.watchlist=admin.watchlist.filter((e) => e.mal_id !== id)
-      arr[i]=admin
+      admin.watchlist = admin.watchlist.filter((e) => e.mal_id !== id);
+      arr[i] = admin;
       fs.writeFile("./db/user.json", JSON.stringify(arr), (err) => {
         res.send(arr);
       });
+    } else {
+      res.status(400).send("Not logged in");
+      console.log("not");
     }
-    else{
-      res.status(400).send("Not logged in")
-     console.log("not")
-    }
-    
   });
-
-})
-
+});
 
 module.exports = router;
