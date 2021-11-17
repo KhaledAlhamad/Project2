@@ -51,7 +51,8 @@ function Profile() {
 
   console.log(state.user);
 
-  const getWatch = () => {
+  useEffect(() => {
+    
     setShow(!show)
     console.log(state.user.email);
     const u = state.user.email;
@@ -63,13 +64,28 @@ function Profile() {
         setWatch(res.data);
         //console.log('res dot dot data',res.data)
       });
-  };
+  }, [])
+
+  // const getWatch = () => {
+    
+  //   setShow(!show)
+  //   console.log(state.user.email);
+  //   const u = state.user.email;
+  //   axios
+  //     .get(`http://localhost:8080/user/watch?email=${state.user.email}`)
+  //     .then((res) => {
+  //       console.log(res.data);
+  //       // dispatch(addWatch(res.data))
+  //       setWatch(res.data);
+  //       //console.log('res dot dot data',res.data)
+  //     });
+  // };
   return (
     <div>
       {log.logged ? (
         <div>
-          <h1>Email: {state.user.email}</h1>
-          <button class={show?"btn btn-outline-danger":"btn btn-outline-primary"} onClick={() => getWatch()}>{show?'Hide watchlist':'Show watchlist'}</button>
+          <h1>@ {state.user.email}</h1>
+          {/* <button class={show?"btn btn-outline-danger":"btn btn-outline-primary"} onClick={() => getWatch()}>{show?'Hide watchlist':'Show watchlist'}</button> */}
           
           <section className="product spad">
             <div class="container">
@@ -86,7 +102,7 @@ function Profile() {
                       </div>
                       {watch?.map((e) => {
                         return (
-                          <div class="col-lg-2 col-md-6 col-sm-6 ">
+                          <div class="col-lg-4 col-md-6 col-sm-6 ">
                             <div class="product__item">
                               <div
                                 class="product__item__pic set-bg"
@@ -98,9 +114,9 @@ function Profile() {
                                   onClick={() => {
                                     removeItem(e);
                                   }}
-                                  class="ep"
+                                  class="btn btn-danger"
                                 >
-                                  ×
+                                  X
                                 </button>
                                 <div class="comment"></div>
                               </div>

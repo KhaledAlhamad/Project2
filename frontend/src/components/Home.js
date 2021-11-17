@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 // import { setID } from "../reducers/details/details";
 import SNK from '../SNK.jpg'
+import CSM from '../'
 
 function Home(props) {
   return (
@@ -28,11 +29,11 @@ function Home(props) {
   </div>
   <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="sr-only">Previous</span>
+    
   </a>
   <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="sr-only">Next</span>
+    
   </a>
 </div>
       <section className="product spad">
@@ -40,58 +41,9 @@ function Home(props) {
           <div className="row">
             <div className="col-lg">
               <div className="trending__product">
+                
                 <div className="row">
-                  <div className="col-lg-8 col-md-8 col-sm-8">
-                    <div className="section-title">
-                      <h4>Trending Now</h4>
-                    </div>
-                  </div>
-
-                  <div class="col-lg-4 col-md-4 col-sm-4">
-                    <div class="btn__all">
-                      <a class="primary-btn">
-                       <Link to='/Trending'>View All <span class="arrow_right"></span></Link> 
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                <div className="row">
-                  {props?.airing?.slice(0,6).map((e, i) => {
-                    return (
-                      <div class="col-lg-2 col-md-6 col-sm-6">
-                      <div class="product__item">
-                        <div
-                          class="product__item__pic set-bg"
-                          style={{
-                            backgroundImage: "url(" + e.image_url + ")",
-                          }}
-                        >
-                          {e?.episodes ?<div class="ep">{e.episodes}</div> : ""}
-                          {/* <div class="comment">
-                            <i class="fa fa-comments"></i> 11
-                          </div> */}
-                          <div class="view">
-                            <i class="fa fa-eye"></i> {e.score}/10
-                          </div>
-                        </div>
-                        <div class="product__item__text">
-                          {/* <ul>
-                          <li>Active</li>
-                          <li>Movie</li>
-                        </ul> */}
-                          <h5>
-                            <a>
-                              <Link to={`/Details/${e.mal_id}`}>
-                                {e.title}
-                              </Link>{" "}
-                            </a>
-                          </h5>
-                        </div>
-                      </div>
-                    </div>
-                    );
-                  })}
-                  <div class="row">
+                <div class="row">
                     <div class="col-lg-8 col-md-8 col-sm-8">
                       <div class="section-title">
                         <h4>Upcoming</h4>
@@ -141,6 +93,57 @@ function Home(props) {
                     </div>
                     );
                   })}
+                  <div className="row">
+                  <div className="col-lg-8 col-md-8 col-sm-8">
+                    <div className="section-title">
+                      <h4>Trending Now</h4>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-4 col-md-4 col-sm-4">
+                    <div class="btn__all">
+                      <a class="primary-btn">
+                       <Link to='/Trending'>View All <span class="arrow_right"></span></Link> 
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                  {props?.airing?.slice(0,6).map((e, i) => {
+                    return (
+                      <div class="col-lg-2 col-md-6 col-sm-6">
+                      <div class="product__item">
+                        <div
+                          class="product__item__pic set-bg"
+                          style={{
+                            backgroundImage: "url(" + e.image_url + ")",
+                          }}
+                        >
+                          {e?.episodes ?<div class="ep">{e.episodes}</div> : ""}
+                          {/* <div class="comment">
+                            <i class="fa fa-comments"></i> 11
+                          </div> */}
+                          <div class="view">
+                            <i class="fa fa-eye"></i> {e.score}/10
+                          </div>
+                        </div>
+                        <div class="product__item__text">
+                          {/* <ul>
+                          <li>Active</li>
+                          <li>Movie</li>
+                        </ul> */}
+                          <h5>
+                            <a>
+                              <Link to={`/Details/${e.mal_id}`}>
+                                {e.title}
+                              </Link>{" "}
+                            </a>
+                          </h5>
+                        </div>
+                      </div>
+                    </div>
+                    );
+                  })}
+                  
                   <div class="row">
                     <div class="col-lg-8 col-md-8 col-sm-8">
                       <div class="section-title">
