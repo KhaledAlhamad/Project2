@@ -28,6 +28,7 @@ import Mystery from "./components/Category/Mystery";
 function App() {
   const [airing, setAiring] = useState([]);
   const [top, setTop] = useState([]);
+  const [upcoming, setUpcoming] = useState([])
   const [season, setSeason] = useState([]);
   // const [anime, setAnime] = useState([])
   //ADDED K
@@ -39,6 +40,14 @@ function App() {
   //     setAiring(res.data.top);
   //   });
   // }, []);
+
+  // GET Upcoming
+  useEffect(() => {
+    axios.get("https://api.jikan.moe/v3/top/anime/1/upcoming").then((res) => {
+      setUpcoming(res.data.top);
+    });
+  }, []);
+  
 
   // GET Airing
   useEffect(() => {
@@ -103,12 +112,12 @@ function App() {
               <Route
                 exact
                 path="/"
-                element={<Home airing={airing} top={top} season={season} />}
+                element={<Home airing={airing} top={top} season={season} upcoming={upcoming}/>}
               ></Route>
               <Route
                 exact
                 path="/Home"
-                element={<Home airing={airing} top={top} season={season} />}
+                element={<Home airing={airing} top={top} season={season} upcoming={upcoming} />}
               ></Route>
               <Route
                 exact
