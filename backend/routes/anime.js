@@ -24,6 +24,19 @@ router.get("/airing", (req, res) => {
   console.log("GET TOP from anime route");
 });
 
+// GET Season
+router.get("/season", (req, res) => {
+  axios.get("https://api.jikan.moe/v3/season/2021/fall",{
+    params: {
+      _limit: 10
+     }
+  }).then((response) => {
+    res.send(response.data);
+    console.log(response.data)
+  });
+  console.log("GET Season from anime route");
+});
+
 // GET Details
 router.get("/:id", (req, res) => {
   const id = req.params.id;
