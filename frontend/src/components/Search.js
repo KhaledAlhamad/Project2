@@ -23,10 +23,10 @@ function Search() {
 
   return (
     <div  id="search_page">
-      <div >
+      <div className="row">
         {results?.map((e, i) => {
           return (
-            <div class="col-lg-4">
+            <div class="col-lg-3">
               <div class="product__item">
                 <div
                   class="product__item__pic set-bg"

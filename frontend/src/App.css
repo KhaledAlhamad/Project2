@@ -2,7 +2,14 @@
   /* text-align: center; */
   font-family: "Abel", sans-serif;
   position: relative;
-  background-image: linear-gradient(#081122, #172e5e);
+  /* background-image: linear-gradient(#081122, #172e5e); */
+  /* background: rgb(2,0,36);
+  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(5,96,179,1) 0%, rgba(9,9,121,1) 34%, rgba(0,212,255,1) 100%); */
+
+  /* background: rgb(2,0,36);
+background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(5,96,179,1) 0%, rgba(9,121,116,1) 48%, rgba(0,212,255,1) 100%); */
+/* background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%); */
+background-image: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
 }
 
 .App-header {
@@ -138,14 +145,15 @@ p {
 }
 .details_description {
   max-width: 120ch;
-  color: #9b9b9b;
+  /* color: #9b9b9b; */
 }
 .details_ul {
-  list-style-type: square;
+  list-style-type: circle;
   display: grid;
   grid-template-columns: 60% 60%;
   column-gap: 10%;
   color: #9b9b9b;
+  
 }
 .details_ul > li {
   margin: 0 0;
@@ -164,18 +172,22 @@ span>span{
   margin: 20px;
 }
 .navbar{
-  background-image: linear-gradient(#000000, #0f1d3d, black);;
+  /* background-image: linear-gradient(#000000, #0f1d3d, black);; */
+  /* background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%); */
+  background-image: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
+
   opacity: 1;
   position: fixed;
   top: 0;
 }
 .navbar-brand{
   transition: 0.6s; border-radius: 1cm; padding: 10px;
+  font-weight: 600;
 }
 .navbar-brand:hover{
     transform: translate3D(0, -1px, 0) scale(1.01); /* move up slightly and zoom in */
     box-shadow: 1px 1px 1px white, -1px -1px 1px white, -0.1px 0.1px white, 0.1px -0.1px white;
-    padding: 25px 15px;
+    /* padding: 25px 15px; */
     transition: all 0.4s ease; /* zoom in */
     cursor: pointer;
     background:inherit;
@@ -189,6 +201,7 @@ span>span{
   padding: 10px;
   margin: 10px;
   background-image: linear-gradient(to bottom left, #060c18, #0a162c, #091327);
+  border-radius:1em;
 }
 @media (max-width: 790px) {
   .details_ul {
@@ -357,7 +370,7 @@ h6 {
 
 .product__item__text h5 a {
   color: #ffffff !important;
-  font-weight: 700;
+  /* font-weight: 700; */
   line-height: 26px;
   text-decoration: none;
 }
@@ -509,3 +522,10 @@ a{
 #emailHelp{
   opacity: 0;
 }
+
+.carousel-item{
+  width:90vw !important;
+  /* height: 90vh !important; */
+   }
+  
+   
