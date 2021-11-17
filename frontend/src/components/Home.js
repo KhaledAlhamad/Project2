@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 // import { setID } from "../reducers/details/details";
 import SNK from '../SNK.jpg'
-import CSM from '../'
+import CSM from '../CSM.jpg'
 
 function Home(props) {
   return (
@@ -15,13 +15,13 @@ function Home(props) {
         <div class="loader"></div>
       </div> */}
 
-<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+{/* <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
   <div class="carousel-inner">
     <div class="carousel-item active">
       <img class="d-block w-100" src={SNK} alt="First slide"/>
     </div>
     <div class="carousel-item">
-      <img class="d-block w-100" src="..." alt="Second slide"/>
+      <img class="d-block w-100" src={CSM} alt="Second slide"/>
     </div>
     <div class="carousel-item">
       <img class="d-block w-100" src="..." alt="Third slide"/>
@@ -35,6 +35,17 @@ function Home(props) {
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
     
   </a>
+</div> */}
+
+<div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src={SNK} class="d-block w-100" alt="..."/>
+    </div>
+    <div class="carousel-item">
+      <img src={CSM} class="d-block w-100" alt="..."/>
+    </div>
+  </div>
 </div>
       <section className="product spad">
         <div className="container">

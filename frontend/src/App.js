@@ -107,7 +107,7 @@ function App() {
       <Router>
         <div className="App">
           <Navbar />
-          <Sidebar />
+          {/* <Sidebar /> */}
           <header className="App-header">
             <Routes>
               <Route
