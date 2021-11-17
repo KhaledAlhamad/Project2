@@ -24,10 +24,12 @@ import Action from "./components/Category/Action";
 import Adventure from "./components/Category/Adventure";
 import Comedy from "./components/Category/Comedy";
 import Mystery from "./components/Category/Mystery";
+import Upcoming from "./components/Upcoming";
 
 function App() {
   const [airing, setAiring] = useState([]);
   const [top, setTop] = useState([]);
+  const [upcoming, setUpcoming] = useState([])
   const [season, setSeason] = useState([]);
   // const [anime, setAnime] = useState([])
   //ADDED K
@@ -39,6 +41,14 @@ function App() {
   //     setAiring(res.data.top);
   //   });
   // }, []);
+
+  // GET Upcoming
+  useEffect(() => {
+    axios.get("https://api.jikan.moe/v3/top/anime/1/upcoming").then((res) => {
+      setUpcoming(res.data.top);
+    });
+  }, []);
+  
 
   // GET Airing
   useEffect(() => {
@@ -103,12 +113,12 @@ function App() {
               <Route
                 exact
                 path="/"
-                element={<Home airing={airing} top={top} season={season} />}
+                element={<Home airing={airing} top={top} season={season} upcoming={upcoming}/>}
               ></Route>
               <Route
                 exact
                 path="/Home"
-                element={<Home airing={airing} top={top} season={season} />}
+                element={<Home airing={airing} top={top} season={season} upcoming={upcoming} />}
               ></Route>
               <Route
                 exact
@@ -119,11 +129,9 @@ function App() {
               <Route path="/signup" element={<Signup />}></Route>
               <Route path="/profile" element={<Profile />}></Route>
               <Route path="/Search" element={<Search />}></Route>
-              <Route
-                path="/Trending"
-                element={<Trending airing={airing} />}
-              ></Route>
+              <Route path="/Trending" element={<Trending airing={airing} />}></Route>
               <Route path="/Top" element={<Top top={top} />}></Route>
+              <Route path="/Upcoming" element={<Upcoming upcoming={upcoming} />}></Route>
               <Route path="/Season" element={<Season season={season} />}></Route>
               <Route path="/Action" element={<Action />}></Route>
               <Route path="/Adventure" element={<Adventure />}></Route>
