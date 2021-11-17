@@ -20,6 +20,10 @@ import Search from "./components/Search";
 import Trending from "./components/Trending";
 import Top from "./components/Top";
 import Season from "./components/Season";
+import Action from "./components/Category/Action";
+import Adventure from "./components/Category/Adventure";
+import Comedy from "./components/Category/Comedy";
+import Mystery from "./components/Category/Mystery";
 
 function App() {
   const [airing, setAiring] = useState([]);
@@ -121,6 +125,10 @@ function App() {
               ></Route>
               <Route path="/Top" element={<Top top={top} />}></Route>
               <Route path="/Season" element={<Season season={season} />}></Route>
+              <Route path="/Action" element={<Action />}></Route>
+              <Route path="/Adventure" element={<Adventure />}></Route>
+              <Route path="/Comedy" element={<Comedy />}></Route>
+              <Route path="/Mystery" element={<Mystery />}></Route>
             </Routes>
           </header>
         </div>
