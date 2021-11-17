@@ -18,7 +18,7 @@ function Navbar() {
     <nav class="navbar navbar-expand-lg navbar-dark">
       <div class="container-fluid">
       <Link class="navbar-brand" to="/Home">
-            ANIME LIST
+            ANIME <span style={{color:'red'}}>LIST</span> 
           </Link>
         <button
           class="navbar-toggler"
@@ -96,56 +96,3 @@ function Navbar() {
 }
 export default Navbar;
 
-{
-  /* <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
-<div id="navbar">
-      <div className="d-flex" id="Link_search">
-            <input
-              type="search"
-              placeholder="Search"
-              className="me-0"
-              aria-label="Search"
-              onChange={(e) => setSearchSomething(e.target.value)}
-            />
-            <Link
-              className="Link_search"
-              onClick={()=>dispatch(setSearch(searchSomething))}
-              variant="outline-success"
-              to="/Search"
-            >
-              🔎
-            </Link>
-          </div>
-      {/* ADDED K */
-}
-// {log.logged ? (
-//   <a class="Nav " href="#">
-//     <Link
-//       className="Link"
-//       to="/profile"
-//       // style={{ textDecoration: "none", color: "black" }}
-//     >
-//       <button
-//         type="submit"
-//         class="btn btn-light btn-sm"
-//       >
-//         {state.user?.email}
-//       </button>
-//     </Link>
-//   </a>
-// ) : (
-//   <a class="Nav " href="#">
-//     <Link
-//       className="Link"
-//       to="/login"
-//       // style={{ textDecoration: "none", color: "black" }}
-//     >
-//       Log in
-//     </Link>
-//   </a>
-// )}
-//   {/* ADDED K END  */}
-// </div> */}

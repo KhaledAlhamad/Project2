@@ -30,8 +30,6 @@ function App() {
   const [top, setTop] = useState([]);
   const [upcoming, setUpcoming] = useState([])
   const [season, setSeason] = useState([]);
-  // const [anime, setAnime] = useState([])
-  //ADDED K
   const [logged, setLogged] = useState(false);
 
   // GET Airing from backend (slow loading)
@@ -87,20 +85,7 @@ function App() {
     });
   }, []);
 
-  // axios.get("https://api.jikan.moe/v3/season/2021/fall",{
-  //   params: {
-  //     _limit: 10
-  //    }
-  // }).then((response) => {
-  //   res.send(response.data);
-  //   console.log(response.data)
-  // });
-
-  // <<<<<<< yasser
-  // const top = anime.slice(1, 6);
-  // =======
-
-  // >>>>>>> main
+  
   return (
     <LogContext.Provider value={{ logged, setLogged }}>
       <Router>
