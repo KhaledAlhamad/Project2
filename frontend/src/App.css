@@ -505,3 +505,7 @@ a{
   background-color: red;
 }
 #search_page{display: flex; flex-direction: row;}
+
+#emailHelp{
+  opacity: 0;
+}
