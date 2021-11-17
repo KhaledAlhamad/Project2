@@ -46,21 +46,21 @@ function Login() {
   return (
     <div className="Login">
         {/* ADDED K */}
-        {log.logged ? navigate('../Profile', {replace:true})
+        {log.logged ? navigate('../Home', {replace:true})
       : (
         <form>
         <div class="form-group">
           <h1>Login</h1>
-          <label for="exampleInputEmail1">Email address</label>
+          <label for="exampleInputEmail1">Username</label>
           <input
             type="email"
             class="form-control"
             id="exampleInputEmail1"
             aria-describedby="emailHelp"
-            placeholder="Enter email"
+            placeholder="Enter username"
           />
           <small id="emailHelp" class="form-text text-muted">
-            We'll never share your email with anyone else.
+            We'll never share your data with anyone else.
           </small>
         </div>
         <div class="form-group">
