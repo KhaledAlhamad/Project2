@@ -126,7 +126,7 @@ function Details(props) {
             <li>
               Views: <span>{detail[0]?.members}</span>
             </li>
-          </ul>{log.logged?<button onClick={() => addWatch(detail[0])}>Add to Watch </button>:<Link to="../login"></Link>}
+          </ul>{log.logged?<button className="btn btn-success" onClick={() => addWatch(detail[0])}>Add to Watch </button>:<Link to="../login"></Link>}
           
         </div>
         <div className="reviews">
