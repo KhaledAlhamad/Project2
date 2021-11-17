@@ -11,7 +11,6 @@ import Home from "./components/Home";
 import Navbar from "./components/Navbar";
 import Details from "./components/Details";
 import Login from "./components/Login";
-import Sidebar from "./components/Sidebar";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import { LogContext } from "./components/LogContext";
 import Signup from "./components/Signup";
@@ -107,7 +106,6 @@ function App() {
       <Router>
         <div className="App">
           <Navbar />
-          <Sidebar />
           <header className="App-header">
             <Routes>
               <Route

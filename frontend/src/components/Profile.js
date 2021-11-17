@@ -9,7 +9,7 @@ import axios from "axios";
 
 function Profile() {
   const [watch, setWatch] = useState([]);
-  const [show, setShow] = useState(false);
+  // const [show, setShow] = useState(false);
   const log = useContext(LogContext);
   const state = useSelector((state) => {
     return {
@@ -53,9 +53,9 @@ function Profile() {
 
   useEffect(() => {
     
-    setShow(!show)
-    console.log(state.user.email);
-    const u = state.user.email;
+  //   setShow(!show)
+  //   console.log(state.user.email);
+  //   const u = state.user.email;
     axios
       .get(`http://localhost:8080/user/watch?email=${state.user.email}`)
       .then((res) => {
@@ -64,7 +64,7 @@ function Profile() {
         setWatch(res.data);
         //console.log('res dot dot data',res.data)
       });
-  }, [])
+  }, [watch])
 
   // const getWatch = () => {
     
@@ -85,14 +85,13 @@ function Profile() {
       {log.logged ? (
         <div>
           <h1>@ {state.user.email}</h1>
-          {/* <button class={show?"btn btn-outline-danger":"btn btn-outline-primary"} onClick={() => getWatch()}>{show?'Hide watchlist':'Show watchlist'}</button> */}
           
           <section className="product spad">
             <div class="container">
               <div class="row">
                 <div class="col-lg">
                   <div className="trending__product">
-                    {show?<div className="row">
+                    <div className="row">
                       <div class="row">
                         <div class="col-lg col-md-8 col-sm-8">
                           <div class="section-title">
@@ -102,7 +101,7 @@ function Profile() {
                       </div>
                       {watch?.map((e) => {
                         return (
-                          <div class="col-lg-4 col-md-6 col-sm-6 ">
+                          <div class="col-lg-3 col-md-6 col-sm-6 ">
                             <div class="product__item">
                               <div
                                 class="product__item__pic set-bg"
@@ -133,7 +132,7 @@ function Profile() {
                           </div>
                         );
                       })}
-                    </div>:''}
+                    </div>
                   </div>
                 </div>
               </div>
