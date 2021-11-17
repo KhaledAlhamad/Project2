@@ -2,12 +2,10 @@ import axios from "axios";
 import React, { useContext } from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { LogContext } from "./LogContext";
 import { addUser } from "../reducers/user/user";
 
 const Signup = () => {
   const navigate = useNavigate();
-  const log = useContext(LogContext);
   const dispatch = useDispatch();
   const state = useSelector((state)=>{
     return {user:state.user.user}
@@ -27,14 +25,13 @@ const Signup = () => {
           })
           .then((res) => {
             console.log(res.data);
-            log.setLogged(true);
             dispatch(addUser(res.data))
+            navigate('../login', {replace:true})
           });
       };
 
     return (
         <div>
-          {log.logged?navigate('../Profile', {replace:true}):
             <form>
         <div class="form-group">
           <h1>SignUp</h1>
@@ -83,7 +80,7 @@ const Signup = () => {
             {" "}
             Or log in
           </Link>
-      </form>}
+      </form>
         </div>
     )
 }

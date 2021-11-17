@@ -39,18 +39,21 @@ router.get("/season", (req, res) => {
 
 // GET Details
 router.get("/:id", (req, res) => {
-  const id = req.params.id;
+  const animeID = req.params.id;
   // const u = req.query.email;
   // console.log('req.query.email req.query.email req.query.email req.query.email',u)
-  axios.get(`https://api.jikan.moe/v3/anime/${id}`).then((response) => {
+  axios.get(`https://api.jikan.moe/v3/anime/${animeID}`).then((response) => {
+      console.log('anime 1 anime 1 anime 1 anime 1 anime 1 anime 1',response.data)
     fs.readFile("./db/anime.json", "utf8", (err, data) => {
       let arr = JSON.parse(data);
-      const admin = arr.find((user) => user.id == id);
+      const reviews = arr.find((e) => e.id == animeID);
 
-      if (admin) {
-        res.send([response.data, admin]);
+      if (reviews) {
+        console.log('anime 2 anime 2 with reviews reviews reviews reviews',[response.data,reviews])
+        res.json([response.data, reviews]);
       } else {
-        res.send([response.data, ""]);
+        console.log('anime 3 anime 3 without without without without without',[response.data,''])
+        res.json([response.data, ""]);
       }
       // else{
       //   res.status(400).send("Not logged in")

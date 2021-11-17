@@ -19,16 +19,19 @@ function Details(props) {
   const [MALreviews, setMALreviews] = useState([]);
   const [newReview, setNewReview] = useState(false);
   console.log(id);
+
   useEffect(() => {
     axios.get(`http://localhost:8080/anime/${id}`).then((res) => {
       // console.log(id)
+      console.log("res data");
       setDetail(res.data);
-      console.log("res data", res.data);
       console.log(state.user);
-    });
+    }).catch((err)=>{
+      console.log('error at getting anime')
+    })
     axios.get(`https://api.jikan.moe/v3/anime/${id}/reviews/1`).then((res) => {
       setMALreviews(
-        res?.data?.reviews?.length > 5 ? res.data.reviews.slice(0, 4) : res.data
+        res?.data?.reviews?.length > 5 ? res.data.reviews.slice(0, 4) : res.data.reviews
       );
       console.log("mal", MALreviews);
     });
@@ -74,6 +77,8 @@ function Details(props) {
 
   // https://api.jikan.moe/v3/anime/${id}
 
+
+  //if(!detail && !Array.isArray(detail)) return <div> Loading ...</div>;
   return (
     <div>
       <div>
@@ -94,8 +99,7 @@ function Details(props) {
             </li>
             {/* <li>Studios:{detail.studios[0].name}</li> */}
             <li>
-              Date aired: <span>{detail?.aired?.from.substring(0,10)}</span>
-              Date aired: <span>{detail[0]?.aired.from.substring(0, 10)}</span>
+              Date aired: <span>{detail[0]?.aired?.from?.substring(0,10)}</span>
             </li>
             <li>
               Status: <span>{detail[0]?.status}</span>
@@ -116,13 +120,7 @@ function Details(props) {
             <li>
               Genre:{" "}
               <span>
-                {detail?.genres?.length > 0
-                  ? detail?.genres?.reduce(
-                {detail[0]?.genres.length > 0
-                  ? detail[0].genres.reduce(
-                      (accomulator, current) => " " + current?.name
-                    )
-                  : ""}
+                {detail[0]?.genres?.map(g => g.name).join(", ")}
               </span>
             </li>
             <li>
@@ -132,9 +130,9 @@ function Details(props) {
           
         </div>
         <div className="reviews">
-          {MALreviews == "" || MALreviews == []
+          {MALreviews.length == 0
             ? ""
-            : MALreviews.map((e) => {
+            : MALreviews?.map((e) => {
                 return (
                   <div className="review_mal">
                     <p>{e?.date?.slice(0, 10) + " " + e?.date?.slice(12)}</p>
@@ -178,9 +176,7 @@ function Details(props) {
             <button
               type="submit"
               class="btn btn-primary btn-lg"
-              onClick={(e) => {
-                createReview(e);
-              }}
+              onClick={(e) => createReview(e)}
             >
               Post
             </button>
