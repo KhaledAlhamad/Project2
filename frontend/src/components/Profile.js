@@ -84,7 +84,7 @@ function Profile() {
     <div>
       {log.logged ? (
         <div>
-          <h1>@ {state.user.email}</h1>
+          <h1>@{state.user.email}</h1>
           
           <section className="product spad">
             <div class="container">

@@ -528,4 +528,7 @@ a{
   /* height: 90vh !important; */
    }
   
-   
+.view-all{
+  text-decoration: none;
+  color: white;
+}

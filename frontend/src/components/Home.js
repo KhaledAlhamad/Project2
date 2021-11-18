@@ -36,7 +36,7 @@ function Home(props) {
                     <div class="col-lg-4 col-md-4 col-sm-4">
                       <div class="btn__all">
                         <a class="primary-btn">
-                          <Link to="/Upcoming">
+                          <Link to="/Upcoming" className="view-all">
                             View All <span class="arrow_right"></span>
                           </Link>
                         </a>
@@ -95,7 +95,7 @@ function Home(props) {
                     <div class="col-lg-4 col-md-4 col-sm-4">
                       <div class="btn__all">
                         <a class="primary-btn">
-                          <Link to="/Trending">
+                          <Link to="/Trending" className="view-all">
                             View All <span class="arrow_right"></span>
                           </Link>
                         </a>
@@ -151,7 +151,7 @@ function Home(props) {
                     <div class="col-lg-4 col-md-4 col-sm-4">
                       <div class="btn__all">
                         <a class="primary-btn">
-                          <Link to="/Top">
+                          <Link to="/Top" className="view-all">
                             View All <span class="arrow_right"></span>
                           </Link>
                         </a>
@@ -207,7 +207,7 @@ function Home(props) {
                     <div class="col-lg-4 col-md-4 col-sm-4">
                       <div class="btn__all">
                         <a class="primary-btn">
-                          <Link to="/Season">
+                          <Link to="/Season" className="view-all">
                             View All <span class="arrow_right"></span>
                           </Link>
                         </a>
